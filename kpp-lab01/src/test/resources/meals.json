@@ -1,0 +1,108 @@
+[
+  {
+    "type": "Default",
+    "name": "Carpaccio",
+    "servingInGrams": 120,
+    "calories": 159.30,
+    "price": 25.00,
+    "ingredients": [
+      "Raw beef",
+      "Vinegar",
+      "Olive olive",
+      "Salt",
+      "Ground pepper"
+    ]
+  },
+  {
+    "type": "Default",
+    "name": "Water",
+    "servingInGrams": 200,
+    "ingredients": [
+      "Water"
+    ]
+  },
+  {
+    "type": "Intolerance-Free",
+    "name": "Dairy-Free Vanilla Ice Cream",
+    "servingInGrams": 170,
+    "calories": 221.90,
+    "price": 9.50,
+    "ingredients": [
+      "Coconut milk",
+      "Caster sugar",
+      "Vanilla pod",
+      "Cornflour",
+      "Salt"
+    ],
+    "excludedSubstances": [
+      "Lactose"
+    ]
+  },
+  {
+    "type": "Special",
+    "name": "Spicy Spring Rolls",
+    "servingInGrams": 150,
+    "calories": 153.80,
+    "price": 13.50,
+    "ingredients": [
+      "Rice roll wrapper",
+      "Red pepper",
+      "Napa cabbage",
+      "Garlic",
+      "Bamboo shoot",
+      "Mirin",
+      "Soy sauce",
+      "Canola oil",
+      "Sesame oil",
+      "Salt"
+    ],
+    "characteristics": [
+      "Spicy"
+    ]
+  },
+  {
+    "type": "Special",
+    "name": "Vegetarian Chili",
+    "servingInGrams": 220,
+    "calories": 263.2,
+    "price": 9.50,
+    "ingredients": [
+      "Bell pepper",
+      "Onion",
+      "Carrot",
+      "Roma tomato",
+      "Beans",
+      "Garlic",
+      "Cumin",
+      "Olive oil",
+      "Chili powder",
+      "Salt"
+    ],
+    "characteristics": [
+      "Spicy",
+      "Vegetarian"
+    ]
+  },
+  {
+    "type": "Special",
+    "name": "Ratatouille",
+    "servingInGrams": 200,
+    "calories": 159.30,
+    "price": 13.50,
+    "ingredients": [
+      "Eggplant",
+      "Roma tomato",
+      "Squashes",
+      "Zucchini",
+      "Basil",
+      "Garlic",
+      "Parsley",
+      "Thyme",
+      "Olive oil",
+      "Salt"
+    ],
+    "characteristics": [
+      "Vegetarian"
+    ]
+  }
+]
