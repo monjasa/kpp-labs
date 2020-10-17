@@ -13,8 +13,8 @@ public class DefaultMeal extends Meal {
         super(name, portionInGrams, calories, price, ingredients);
     }
 
-    public static ClassicMealBuilder builder() {
-        return new ClassicMealBuilder();
+    public static DefaultMealBuilder builder() {
+        return new DefaultMealBuilder();
     }
 
     @Override
@@ -28,45 +28,45 @@ public class DefaultMeal extends Meal {
                 '}';
     }
 
-    public static class ClassicMealBuilder {
+    public static class DefaultMealBuilder {
 
         private final DefaultMeal meal;
 
-        public ClassicMealBuilder() {
+        public DefaultMealBuilder() {
             meal = new DefaultMeal();
         }
 
-        public ClassicMealBuilder name(String name) {
+        public DefaultMealBuilder name(String name) {
             meal.name = name;
             return this;
         }
 
-        public ClassicMealBuilder servingInGrams(int servingInGrams) {
+        public DefaultMealBuilder servingInGrams(int servingInGrams) {
             meal.servingInGrams = servingInGrams;
             return this;
         }
 
-        public ClassicMealBuilder calories(double calories) {
+        public DefaultMealBuilder calories(double calories) {
             meal.calories = calories;
             return this;
         }
 
-        public ClassicMealBuilder price(double price) {
+        public DefaultMealBuilder price(double price) {
             meal.price = price;
             return this;
         }
 
-        public ClassicMealBuilder ingredient(String ingredient) {
+        public DefaultMealBuilder ingredient(String ingredient) {
             meal.ingredients.add(ingredient);
             return this;
         }
 
-        public ClassicMealBuilder ingredients(Collection<? extends String> ingredients) {
+        public DefaultMealBuilder ingredients(Collection<? extends String> ingredients) {
             meal.ingredients.addAll(ingredients);
             return this;
         }
 
-        public ClassicMealBuilder clearIngredients() {
+        public DefaultMealBuilder clearIngredients() {
             meal.ingredients.clear();
             return this;
         }

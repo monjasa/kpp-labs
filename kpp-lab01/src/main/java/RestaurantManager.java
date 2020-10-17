@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class RestaurantManager {
 
-    private final List<Meal> meals;
+    private List<Meal> meals;
 
     public RestaurantManager(List<Meal> meals) {
         this.meals = meals;
@@ -77,5 +77,13 @@ public class RestaurantManager {
                 .map(SpecialMeal.class::cast)
                 .filter(meal -> meal.getCharacteristics().containsAll(characteristic))
                 .collect(Collectors.toList());
+    }
+
+    public List<Meal> getMeals() {
+        return meals;
+    }
+
+    public void setMeals(List<Meal> meals) {
+        this.meals = meals;
     }
 }
