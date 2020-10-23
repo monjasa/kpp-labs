@@ -1,4 +1,4 @@
-package meal;
+package org.monjasa.model;
 
 
 import java.util.Collection;

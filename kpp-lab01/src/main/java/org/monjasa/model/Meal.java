@@ -1,4 +1,4 @@
-package meal;
+package org.monjasa.model;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;

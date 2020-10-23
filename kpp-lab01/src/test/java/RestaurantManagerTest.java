@@ -1,6 +1,7 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
-import meal.Meal;
-import meal.SpecialMeal;
+import org.monjasa.RestaurantManager;
+import org.monjasa.model.Meal;
+import org.monjasa.model.SpecialMeal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;

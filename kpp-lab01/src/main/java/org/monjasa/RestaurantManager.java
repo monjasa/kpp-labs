@@ -1,7 +1,9 @@
-import meal.DefaultMeal;
-import meal.Meal;
-import meal.Meal.MealComparatorByPrice;
-import meal.SpecialMeal;
+package org.monjasa;
+
+import org.monjasa.model.DefaultMeal;
+import org.monjasa.model.Meal;
+import org.monjasa.model.Meal.MealComparatorByPrice;
+import org.monjasa.model.SpecialMeal;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -71,11 +73,11 @@ public class RestaurantManager {
                 .collect(Collectors.toList());
     }
 
-    public List<Meal> getMealsByCharacteristics(Set<String> characteristic) {
+    public List<Meal> getMealsByCharacteristics(Set<String> characteristics) {
         return meals.stream()
                 .filter(SpecialMeal.class::isInstance)
                 .map(SpecialMeal.class::cast)
-                .filter(meal -> meal.getCharacteristics().containsAll(characteristic))
+                .filter(meal -> meal.getCharacteristics().containsAll(characteristics))
                 .collect(Collectors.toList());
     }
 

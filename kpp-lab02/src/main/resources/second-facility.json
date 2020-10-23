@@ -1,0 +1,55 @@
+[ {
+  "firstName": "Leilani",
+  "lastName": "Frey",
+  "dateOfBirth" : "1993-02-20",
+  "position" : "Clerk",
+  "salary" : "45000"
+}, {
+  "firstName": "Bianca",
+  "lastName": "Wheeler",
+  "dateOfBirth" : "1993-06-27",
+  "position" : "Clerk",
+  "salary" : "45000"
+}, {
+  "firstName": "Angelica",
+  "lastName": "Barnett",
+  "dateOfBirth" : "2001-07-17",
+  "position" : "Clerk",
+  "salary" : "40000"
+}, {
+  "firstName": "Joy",
+  "lastName": "Horton",
+  "dateOfBirth" : "1990-01-13",
+  "position" : "Clerk",
+  "salary" : "40000"
+}, {
+  "firstName": "Abagail",
+  "lastName": "Hoffman",
+  "dateOfBirth" : "1986-02-28",
+  "position" : "Clerk",
+  "salary" : "35000"
+}, {
+  "firstName": "Malik",
+  "lastName": "Hensley",
+  "dateOfBirth" : "1985-01-03",
+  "position" : "Clerk",
+  "salary" : "30000"
+}, {
+  "firstName": "Winston",
+  "lastName": "Decker",
+  "dateOfBirth" : "1988-11-17",
+  "position" : "Cashier",
+  "salary" : "35000"
+}, {
+  "firstName": "Sabrina",
+  "lastName": "Durham",
+  "dateOfBirth" : "1996-02-23",
+  "position" : "Cashier",
+  "salary" : "30000"
+}, {
+  "firstName": "Serenity",
+  "lastName": "Glass",
+  "dateOfBirth" : "1998-01-19",
+  "position" : "Cashier",
+  "salary" : "30000"
+} ]
