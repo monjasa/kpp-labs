@@ -1,23 +1,20 @@
 package org.monjasa.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.*;
 
-import java.io.File;
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.net.URL;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Builder
 public class Employee {
+
+    @NonNull
+    @ToString.Exclude
+    private Long id;
 
     @NonNull
     private String firstName;

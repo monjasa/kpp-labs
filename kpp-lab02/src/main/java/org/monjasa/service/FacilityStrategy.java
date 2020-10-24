@@ -1,4 +1,4 @@
-package org.monjasa;
+package org.monjasa.service;
 
 import lombok.NonNull;
 import lombok.Value;

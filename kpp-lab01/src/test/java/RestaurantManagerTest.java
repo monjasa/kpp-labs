@@ -1,4 +1,5 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
 import org.monjasa.RestaurantManager;
 import org.monjasa.model.Meal;
 import org.monjasa.model.SpecialMeal;
@@ -22,10 +23,9 @@ class RestaurantManagerTest {
     void setUp() throws IOException {
 
         ObjectMapper objectMapper = new ObjectMapper();
-        var collectionType = objectMapper.getTypeFactory().constructCollectionType(List.class, Meal.class);
-        var unmarshalledMeals = objectMapper.reader().forType(collectionType).<Collection<? extends Meal>>readValue(
-                RestaurantManagerTest.class.getResourceAsStream("meals.json")
-        );
+        CollectionType collectionType = objectMapper.getTypeFactory().constructCollectionType(List.class, Meal.class);
+        Collection<? extends Meal> unmarshalledMeals = objectMapper.reader().forType(collectionType)
+                .readValue(RestaurantManagerTest.class.getResourceAsStream("meals.json"));
 
         meals = new ArrayList<>(unmarshalledMeals);
     }
@@ -34,8 +34,7 @@ class RestaurantManagerTest {
     void shouldReturnUnsortedMeals() {
 
         RestaurantManager menu = new RestaurantManager(meals);
-
-        var meals = menu.getMealsUnsorted();
+        List<Meal> meals = menu.getMealsUnsorted();
 
         assertThat(meals).isNotNull()
                 .hasSize(6);
@@ -48,8 +47,7 @@ class RestaurantManagerTest {
     void shouldReturnMealsSortedByPriceInAscendingOrder() {
 
         RestaurantManager menu = new RestaurantManager(meals);
-
-        var meals = menu.getMealsSortedByPrice(false);
+        List<Meal> meals = menu.getMealsSortedByPrice(false);
 
         assertThat(meals).isNotNull()
                 .hasSize(6)
@@ -63,8 +61,7 @@ class RestaurantManagerTest {
     void shouldReturnMealsSortedByPriceInDescendingOrder() {
 
         RestaurantManager menu = new RestaurantManager(meals);
-
-        var meals = menu.getMealsSortedByPrice(true);
+        List<Meal> meals = menu.getMealsSortedByPrice(true);
 
         assertThat(meals).isNotNull()
                 .hasSize(6)
@@ -78,8 +75,7 @@ class RestaurantManagerTest {
     void shouldReturnMealsSortedByCaloriesInAscendingOrder() {
 
         RestaurantManager menu = new RestaurantManager(meals);
-
-        var meals = menu.getMealsSortedByCalories(false);
+        List<Meal> meals = menu.getMealsSortedByCalories(false);
 
         assertThat(meals).isNotNull()
                 .hasSize(6)
@@ -93,8 +89,7 @@ class RestaurantManagerTest {
     void shouldReturnMealsSortedByCaloriesInDescendingOrder() {
 
         RestaurantManager menu = new RestaurantManager(meals);
-
-        var meals = menu.getMealsSortedByCalories(true);
+        List<Meal> meals = menu.getMealsSortedByCalories(true);
 
         assertThat(meals).isNotNull()
                 .hasSize(6)
@@ -108,8 +103,7 @@ class RestaurantManagerTest {
     void shouldReturnMealsSortedByServingSizeInAscendingOrder() {
 
         RestaurantManager menu = new RestaurantManager(meals);
-
-        var meals = menu.getMealsSortedByServingSize(false);
+        List<Meal> meals = menu.getMealsSortedByServingSize(false);
 
         assertThat(meals).isNotNull()
                 .hasSize(6)
@@ -123,8 +117,7 @@ class RestaurantManagerTest {
     void shouldReturnMealsSortedByServingSizeInDescendingOrder() {
 
         RestaurantManager menu = new RestaurantManager(meals);
-
-        var meals = menu.getMealsSortedByServingSize(true);
+        List<Meal> meals = menu.getMealsSortedByServingSize(true);
 
         assertThat(meals).isNotNull()
                 .hasSize(6)
@@ -138,8 +131,7 @@ class RestaurantManagerTest {
     void shouldReturnMealsSortedByNameAlphabetically() {
 
         RestaurantManager menu = new RestaurantManager(meals);
-
-        var meals = menu.getMealsSortedByNameAlphabetically();
+        List<Meal> meals = menu.getMealsSortedByNameAlphabetically();
 
         assertThat(meals).isNotNull()
                 .hasSize(6)
@@ -153,9 +145,8 @@ class RestaurantManagerTest {
     void shouldReturnMealsFoundByCharacteristic() {
 
         RestaurantManager menu = new RestaurantManager(meals);
-
         String characteristic = "Vegetarian";
-        var meals = menu.getMealsByCharacteristic(characteristic);
+        List<Meal> meals = menu.getMealsByCharacteristic(characteristic);
 
         assertThat(meals).isNotNull()
                 .hasSize(2)
@@ -170,9 +161,8 @@ class RestaurantManagerTest {
     void shouldReturnMealsFoundByCharacteristics() {
 
         RestaurantManager menu = new RestaurantManager(meals);
-
         Set<String> characteristics = Set.of("Spicy", "Vegetarian");
-        var meals = menu.getMealsByCharacteristics(characteristics);
+        List<Meal> meals = menu.getMealsByCharacteristics(characteristics);
 
         assertThat(meals).isNotNull()
                 .hasSize(1)

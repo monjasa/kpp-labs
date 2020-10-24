@@ -19,7 +19,7 @@ public class FacilityApplication {
                 exception.printStackTrace();
             }
 
-            JFrame frame = new DefaultFrame("Application");
+            JFrame frame = new DefaultFrame("Facility Application");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setLocationByPlatform(true);
             frame.pack();
