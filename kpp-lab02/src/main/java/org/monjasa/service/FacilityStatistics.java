@@ -25,7 +25,7 @@ public class FacilityStatistics<T> implements Consumer<T> {
         this.comparator = Objects.requireNonNull(comparator);
     }
 
-    public static <T> Collector<T, ?, FacilityStatistics<T>> statistics(Comparator<T> comparator) {
+    public static <T> Collector<T, ?, FacilityStatistics<T>> collector(Comparator<T> comparator) {
         return Collector.of(
                 () -> new FacilityStatistics<>(comparator),
                 FacilityStatistics<T>::accept,

@@ -26,7 +26,13 @@ public final class FacilityService {
     private FacilityService() {
     }
 
-        public static List<Employee> excludeEmployeesBornAfterDate(Facility facility, LocalDate date) {
+    public static FacilityStatistics<BigDecimal> getSalaryStatistics(Facility facility) {
+        return facility.getEmployees().stream()
+                .map(Employee::getSalary)
+                .collect(FacilityStatistics.collector(BigDecimal::compareTo));
+    }
+
+    public static List<Employee> excludeEmployeesBornAfterDate(Facility facility, LocalDate date) {
         return facility.getEmployees().stream()
                 .filter(employee -> employee.getDateOfBirth().isBefore(date))
                 .collect(Collectors.toList());
@@ -44,14 +50,8 @@ public final class FacilityService {
         return facility.getEmployees().stream()
                 .collect(groupingBy(
                         Employee::getPosition,
-                        FacilityStatistics.statistics(Comparator.comparing(Employee::getDateOfBirth))
+                        FacilityStatistics.collector(Comparator.comparing(Employee::getDateOfBirth))
                 ));
-    }
-
-    public static FacilityStatistics<BigDecimal> getSalaryStatistics(Facility facility) {
-        return facility.getEmployees().stream()
-                .map(Employee::getSalary)
-                .collect(FacilityStatistics.statistics(BigDecimal::compareTo));
     }
 
     public static Map<SalaryBracket, List<Employee>> groupEmployeesBySalaryBracket(Facility facility) {
@@ -65,21 +65,20 @@ public final class FacilityService {
         BigDecimal bracketWidth = maxSalary.subtract(minSalary)
                 .divide(BigDecimal.valueOf(salaryBrackets.size()), RoundingMode.HALF_EVEN);
 
-        Function<Employee, Integer> salaryBracketClassifierIndex = employee -> {
-            if (employee.getSalary().compareTo(maxSalary) == 0)
-                return salaryBrackets.size() - 1;
-            else
-                return employee.getSalary().subtract(minSalary)
-                        .divide(bracketWidth, RoundingMode.FLOOR).intValue();
+        Function<Employee, SalaryBracket> salaryBracketClassifier = employee -> {
+            int index = employee.getSalary().compareTo(maxSalary) == 0
+                    ? salaryBrackets.size() - 1
+                    : employee.getSalary().subtract(minSalary).divide(bracketWidth, RoundingMode.FLOOR).intValue();
+            return salaryBrackets.get(index);
         };
 
         return facility.getEmployees().stream()
-                .collect(groupingBy(salaryBracketClassifierIndex.andThen(salaryBrackets::get)));
+                .collect(groupingBy(salaryBracketClassifier));
     }
 
-    public static Predicate<Employee> distinctEmployeeByKey(Function<Employee, ?> keyExtractor) {
-        Set<Object> seen = ConcurrentHashMap.newKeySet();
-        return employee -> seen.add(keyExtractor.apply(employee));
+    public static <T> Predicate<Employee> distinctEmployeeByKey(Function<Employee, T> keyExtractor) {
+        Set<T> uniqueKeys = ConcurrentHashMap.newKeySet();
+        return employee -> uniqueKeys.add(keyExtractor.apply(employee));
     }
 
     public static Facility unmarshallFacility(File... files) {
