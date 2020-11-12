@@ -165,9 +165,9 @@ class RestaurantManagerTest {
         List<Meal> meals = menu.getMealsByCharacteristics(characteristics);
 
         assertThat(meals).isNotNull()
-                .hasSize(1)
-                .allMatch(SpecialMeal.class::isInstance)
-                .extracting("characteristics", Set.class).contains(characteristics);
+                .singleElement()
+                .isInstanceOf(SpecialMeal.class)
+                .hasFieldOrPropertyWithValue("characteristics", characteristics);
 
         logger.info(String.format("%s:", characteristics.toString().toUpperCase()));
         meals.stream().map(Meal::toString).forEach(logger::info);

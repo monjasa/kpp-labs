@@ -18,6 +18,7 @@
     <modules>
         <module>kpp-lab01</module>
         <module>kpp-lab02</module>
+        <module>kpp-lab03</module>
     </modules>
 
     <dependencies>
