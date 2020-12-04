@@ -3,6 +3,8 @@ package org.monjasa.lab03.model;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Builder
 public class LeafBlock<T extends CharSequence> implements Block<T> {
@@ -21,12 +23,17 @@ public class LeafBlock<T extends CharSequence> implements Block<T> {
                 + closingToken.length();
     }
 
-    public CharSequence getSequence() {
+    public CharSequence formatSequence() {
 
         StringBuilder result = new StringBuilder(openingToken);
 
         result.append(sequence);
 
         return result.append(closingToken);
+    }
+
+    @Override
+    public List<T> extractLeafSequences() {
+        return List.of(sequence);
     }
 }
