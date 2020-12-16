@@ -12,15 +12,11 @@ import java.util.stream.Collectors;
 @Builder
 public class CompositeBlock<T extends CharSequence> implements Block<T> {
 
-    @Singular
-    private List<Block<T>> innerBlocks;
-    @Singular
-    private List<T> sequences;
+    @Builder.Default private CharSequence openingToken = "(";
+    @Builder.Default private CharSequence closingToken = ")";
 
-    @Builder.Default
-    private CharSequence openingToken = "(";
-    @Builder.Default
-    private CharSequence closingToken = ")";
+    @Singular private List<Block<T>> innerBlocks;
+    @Singular private List<T> sequences;
 
     @Override
     public int length() {
@@ -38,17 +34,21 @@ public class CompositeBlock<T extends CharSequence> implements Block<T> {
         return sum;
     }
 
-    public CharSequence formatSequence() {
+    public CharSequence formatSequence(char formattingCharacter) {
 
         StringBuilder result = new StringBuilder(openingToken);
 
         Spliterator<Block<T>> spliterator = innerBlocks.spliterator();
         sequences.forEach(sequence -> {
             result.append(sequence);
-            spliterator.tryAdvance(block -> result.append(block.formatSequence()));
+            spliterator.tryAdvance(block -> result.append(block.formatSequence(formattingCharacter)));
         });
 
-        return result.append(closingToken);
+        result.append(closingToken);
+
+        return result.toString().chars()
+                .map(ch -> Character.isDigit(ch) ? formattingCharacter : ch)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append);
     }
 
     @Override

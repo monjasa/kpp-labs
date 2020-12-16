@@ -9,12 +9,10 @@ import java.util.List;
 @Builder
 public class LeafBlock<T extends CharSequence> implements Block<T> {
 
-    private T sequence;
+    @Builder.Default private CharSequence openingToken = "(";
+    @Builder.Default private CharSequence closingToken = ")";
 
-    @Builder.Default
-    private CharSequence openingToken = "(";
-    @Builder.Default
-    private CharSequence closingToken = ")";
+    private T sequence;
 
     @Override
     public int length() {
@@ -23,13 +21,13 @@ public class LeafBlock<T extends CharSequence> implements Block<T> {
                 + closingToken.length();
     }
 
-    public CharSequence formatSequence() {
+    public CharSequence formatSequence(char formattingCharacter) {
 
-        StringBuilder result = new StringBuilder(openingToken);
+        String result = String.format("%s%s%s", openingToken, sequence, closingToken);
 
-        result.append(sequence);
-
-        return result.append(closingToken);
+        return result.chars()
+                .map(ch -> Character.isDigit(ch) ? formattingCharacter : ch)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append);
     }
 
     @Override

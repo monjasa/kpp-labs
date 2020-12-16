@@ -6,7 +6,7 @@ public interface Block<T extends CharSequence> {
 
     int length();
 
-    CharSequence formatSequence();
+    CharSequence formatSequence(char formattingCharacter);
 
     List<T> extractLeafSequences();
 

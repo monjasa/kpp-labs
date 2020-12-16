@@ -1,31 +1,36 @@
 package org.monjasa.lab03;
 
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 import org.monjasa.lab03.model.Block;
 import org.monjasa.lab03.model.CompositeBlock;
 import org.monjasa.lab03.model.LeafBlock;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class RecursiveDescentParser {
 
-    @Setter
-    public static CharSequence openingToken = "(";
-    @Setter
-    public static CharSequence closingToken = ")";
+    @Setter public static String openingToken = "(";
+    @Setter public static String closingToken = ")";
 
-    public static <T extends CharSequence> Block<String> parseToStringHierarchy(T sequence, int position) {
+    public static <T extends CharSequence> Block<String> parseAsString(T sequence, int position) {
 
         List<Block<String>> innerBlocks = new ArrayList<>();
         List<String> sequences = new ArrayList<>();
 
         StringBuilder sequenceBuilder = new StringBuilder();
 
-        while (!sequence.subSequence(position, position + closingToken.length()).equals(closingToken)) {
+        while (position < sequence.length()) {
 
-            if (sequence.subSequence(position, position + openingToken.length()).equals(openingToken)) {
-                Block<String> innerBlock = RecursiveDescentParser.parseToStringHierarchy(sequence, position + 1);
+            if (StringUtils.indexOf(sequence, closingToken, position) == position) {
+                break;
+            }
+
+            if (StringUtils.indexOf(sequence, openingToken, position) == position) {
+
+                Block<String> innerBlock = RecursiveDescentParser.parseAsString(sequence, position + openingToken.length());
                 innerBlocks.add(innerBlock);
                 position = position + innerBlock.length();
 
@@ -39,24 +44,33 @@ public class RecursiveDescentParser {
 
         sequences.add(sequenceBuilder.toString());
 
-        if (innerBlocks.size() > 0) {
-
-            return CompositeBlock.<String>builder()
-                    .openingToken(openingToken)
-                    .closingToken(closingToken)
-                    .sequences(sequences)
-                    .innerBlocks(innerBlocks)
-                    .build();
+        if (innerBlocks.isEmpty()) {
+            return createLeafBlock(sequenceBuilder.toString());
         } else {
-            return LeafBlock.<String>builder()
-                    .openingToken(openingToken)
-                    .closingToken(closingToken)
-                    .sequence(sequences.get(0))
-                    .build();
+            return createCompositeBlock(sequences, innerBlocks);
         }
     }
 
-    public static <T extends CharSequence> Block<String> parseToStringHierarchy(T sequence) {
-        return parseToStringHierarchy(sequence, openingToken.length());
+    public static <T extends CharSequence> Block<String> parseAsString(T sequence) {
+        return parseAsString(sequence, 0);
+    }
+
+    public static <T extends CharSequence> Block<T> createLeafBlock(T sequence) {
+        return LeafBlock.<T>builder()
+                .openingToken(openingToken)
+                .closingToken(closingToken)
+                .sequence(sequence)
+                .build();
+    }
+
+    public static <T extends CharSequence> Block<T> createCompositeBlock(
+            Collection<? extends T> sequences, Collection<Block<T>> innerBlocks
+    ) {
+        return CompositeBlock.<T>builder()
+                .openingToken(openingToken)
+                .closingToken(closingToken)
+                .sequences(sequences)
+                .innerBlocks(innerBlocks)
+                .build();
     }
 }
