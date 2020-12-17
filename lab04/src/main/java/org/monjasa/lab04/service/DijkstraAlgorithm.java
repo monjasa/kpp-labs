@@ -13,7 +13,7 @@ public class DijkstraAlgorithm {
 
     private final Graph graph;
     private final Queue<Vertex> queue;
-    private final Queue<Vertex> visited;
+    private final Queue<Vertex> visitedVertices;
     private final List<Integer> distances;
 
     public static DijkstraAlgorithm to(Graph graph) {
@@ -24,7 +24,7 @@ public class DijkstraAlgorithm {
 
         this.graph = graph;
         this.queue = new ArrayDeque<>(graph.getSize());
-        this.visited = new ArrayDeque<>(graph.getSize());
+        this.visitedVertices = new ArrayDeque<>(graph.getSize());
 
         this.distances = new ArrayList<>(graph.getSize());
         IntStream.range(0, graph.getSize())
@@ -38,21 +38,21 @@ public class DijkstraAlgorithm {
 
         while (!queue.isEmpty()) {
             Vertex currentVertex = queue.remove();
-            if (!visited.contains(currentVertex)) {
-                visited.add(currentVertex);
-                processNeighbours(currentVertex);
+            if (!visitedVertices.contains(currentVertex)) {
+                visitedVertices.add(currentVertex);
+                visitAdjacentVertices(currentVertex);
             }
         }
 
         return distances;
     }
 
-    private void processNeighbours(Vertex vertex) {
+    private void visitAdjacentVertices(Vertex vertex) {
 
         List<Edge> neighbourEdges = graph.getEdgesWithFirstEndpoint(vertex);
 
         for (Edge edge : neighbourEdges) {
-            if (!visited.contains(edge.getSecondEndpoint()) && edge.getDistance() > INITIAL_DISTANCE) {
+            if (!visitedVertices.contains(edge.getSecondEndpoint()) && edge.getDistance() > INITIAL_DISTANCE) {
                 int newDistance = distances.get(vertex.getIndex()) + edge.getDistance();
                 if (newDistance < distances.get(edge.getSecondEndpoint().getIndex())) {
                     distances.set(edge.getSecondEndpoint().getIndex(), newDistance);
