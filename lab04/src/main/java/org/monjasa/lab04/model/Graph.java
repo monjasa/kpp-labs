@@ -1,12 +1,16 @@
 package org.monjasa.lab04.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class Graph {
 
     @NonNull private Vertex sourceVertex;

@@ -100,6 +100,8 @@ public class ParallelDijkstraAlgorithm {
                     }
                 });
 
+        timerTask.cancel();
+
         return distances;
     }
 

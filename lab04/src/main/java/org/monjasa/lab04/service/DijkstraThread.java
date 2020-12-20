@@ -40,7 +40,6 @@ public class DijkstraThread implements Runnable {
             visitAdjacentVertices(currentVertex.get());
 
             try {
-                Thread.sleep(100);
                 cyclicBarrier.await();
             } catch (InterruptedException | BrokenBarrierException e) {
                 e.printStackTrace();
